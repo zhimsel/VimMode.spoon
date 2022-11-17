@@ -81,13 +81,16 @@ function VimMode:new()
   vim.stateIndicator = StateIndicator:new(vim):update()
 
   vim.enterKeyBind = nil
+  -- vim.escapeKeyBind = nil
 
   return vim
 end
 
 -- Spoon API conformity
 
--- Allows binding entering normal mode to a hot key
+-- Allows binding hot keys to do certain actions. Supported table keys are:
+-- - 'enter' (to enter normal mode)
+-- - 'escape' (to enter insert mode and send the "escape" key)
 --
 -- vim:bindHotKeys({ enter = { {'cmd', 'shift'}, 'v' } })
 function VimMode:bindHotKeys(keyTable)
@@ -98,6 +101,14 @@ function VimMode:bindHotKeys(keyTable)
       self:enter()
     end)
   end
+
+  -- if keyTable.escape then
+  --   local escape = keyTable.escape
+
+  --   self.escapeKeyBind = hs.hotkey.bind(escape[1], escape[2], function()
+  --     self:escape()
+  --   end)
+  -- end
 
   return self
 end

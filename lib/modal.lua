@@ -266,6 +266,10 @@ local function createVimModal(vim)
   -- Normal mode
   modal
     :withContext('normal')
+    :bind({}, 'escape', function()
+      vim:exitAsync()
+      hs.eventtap.keyStroke({}, 'escape', 0)
+    end)
     :bind({}, 'i', function() vim:exitAsync() end)
     :bindMotionsToModal('operator')
     :bindCountsToModal('operator')
